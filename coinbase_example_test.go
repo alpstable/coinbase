@@ -8,6 +8,7 @@ import (
 	"github.com/alpstable/coinbase"
 )
 
+//nolint:testableexamples
 func ExampleClient_Accounts() {
 	key := os.Getenv("COINBASE_API_KEY")
 	secret := os.Getenv("COINBASE_API_SECRET")
