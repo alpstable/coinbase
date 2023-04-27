@@ -2,6 +2,7 @@ package coinbase
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"io"
 	"net/http"
@@ -112,7 +113,7 @@ func TestAccounts(t *testing.T) {
 				},
 			}
 
-			got, err := client.Accounts()
+			got, err := client.Accounts(context.Background())
 			if !errors.Is(err, test.err) {
 				t.Fatalf("got %v, want %v", err, test.err)
 			}

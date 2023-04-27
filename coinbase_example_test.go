@@ -1,13 +1,14 @@
 package coinbase_test
 
 import (
-	"fmt"
+	"context"
+	"log"
 	"os"
 
 	"github.com/alpstable/coinbase"
 )
 
-func ExmapleClient_Accounts() {
+func ExampleClient_Accounts() {
 	key := os.Getenv("COINBASE_API_KEY")
 	secret := os.Getenv("COINBASE_API_SECRET")
 
@@ -16,10 +17,10 @@ func ExmapleClient_Accounts() {
 		panic(err)
 	}
 
-	accounts, err := client.Accounts()
+	accounts, err := client.Accounts(context.Background())
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(accounts)
+	log.Printf("accounts: %+v", accounts)
 }
