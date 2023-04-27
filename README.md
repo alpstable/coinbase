@@ -12,8 +12,7 @@ go get github.com/alpstable/coinbase
 
 To work on the Coinbase Go Library, you need to have the following requirements installed on your system:
 
-
-	1. go: https://go.dev/doc/install
-	2. golangci-lint: https://golangci-lint.run/usage/install/
-	3. gofumpt: https://github.com/mvdan/gofumpt
+  1. go: https://go.dev/doc/install
+  2. golangci-lint: https://golangci-lint.run/usage/install/
+  3. gofumpt: https://github.com/mvdan/gofumpt
 
