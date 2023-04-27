@@ -3,6 +3,7 @@
 package coinbase
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -78,13 +79,13 @@ type Accounts struct {
 // Accounts returns a slice of accounts for the authenticated user.
 //
 // https://docs.cloud.coinbase.com/advanced-trade-api/reference/retailbrokerageapi_getaccounts
-func (client *Client) Accounts() (*Accounts, error) {
+func (client *Client) Accounts(ctx context.Context) (*Accounts, error) {
 	full, err := url.JoinPath(api, "brokerage", "accounts")
 	if err != nil {
 		return nil, fmt.Errorf("failed to join path: %w", err)
 	}
 
-	req, err := http.NewRequest(http.MethodGet, full, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, full, nil)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %w", err)
 	}
@@ -93,7 +94,12 @@ func (client *Client) Accounts() (*Accounts, error) {
 	if err != nil {
 		return nil, fmt.Errorf("failed to send request: %w", err)
 	}
-	defer resp.Body.Close()
+
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			panic(err)
+		}
+	}()
 
 	accounts := &Accounts{}
 	if err := json.NewDecoder(resp.Body).Decode(accounts); err != nil {
